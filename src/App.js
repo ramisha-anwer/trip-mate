@@ -5,24 +5,29 @@ import List from './components/List/List'
 import Map from "./components/Map/Map";
 import placeDetails from './components/PlaceDetails/PlaceDetails'
 import {getPlacesData} from './api'
+import { useGoogleMap } from "@react-google-maps/api";
+
+
 const App = () => {
         const [places,setPlaces]= useState([])
         const [coordinates, setCoordinates]= useState({})
-        const [bounds, setBounds]= useState(null)
-
+        const [bounds, setBounds]= useState({ne:{lat:'33.564072359777626',lng:'73.15619010006544'},sw:{lat:'33.54096456823548',lng:'73.11319580761362'}})
+        
         useEffect(() => {
             navigator.geolocation.getCurrentPosition(({coords:{latitude,longitude}}) => {
-                setCoordinates({lat:latitude,lng:longitude})
+                setCoordinates({lat:latitude,lng:longitude})           
             })
         },[])
 
         useEffect (() => {
-            getPlacesData()
+            getPlacesData(bounds)
             .then((data) => {  
-                console.log(data);
+                
                     setPlaces(data)
+                    console.log(data);
             })
-        },[coordinates,bounds])
+        
+        },[bounds])
     return (
         <>
         <CssBaseline />
@@ -32,10 +37,12 @@ const App = () => {
                 <List places={places} />
             </Grid>
             <Grid item xs={12} md={8}>
-                <Map 
+                <Map
+                bounds={bounds}
                 setCoordinates={setCoordinates}
                 setBounds={setBounds}
                 coordinates={coordinates}
+                places={places}
                 />
             </Grid>
         </Grid>
