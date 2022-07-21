@@ -6,7 +6,7 @@ import useStyles from './styles'
 import React, { useCallback, useRef } from 'react';
 import { GoogleMap, useGoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
-const  Map =  ({setCoordinates, setBounds, coordinates,bounds,places}) => {
+const  Map =  ({setCoordinates, setBounds, coordinates,bounds,places, isLoading, weatherData}) => {
     const classes= useStyles();
     const mapRef= useRef(Map)
     const isDesktop= useMediaQuery('(min-width:600px)')
@@ -51,28 +51,41 @@ const  Map =  ({setCoordinates, setBounds, coordinates,bounds,places}) => {
      
     // }} 
     > 
-    {places?.map((place,i) => {
-    
+    {!isLoading ? (
+    places?.map((place,i) => (
+        
         <div 
         className={classes.markerContainer}
-        lat={Number(place.latitude)}
-        lng={Number(place.longitude)}
+        
         key={i}
-        //style={{left: place.latitude+'px', top:place.longitude+'px'}}
+        style={{ left:Math.floor(Math.random()), top:Math.floor(Math.random())}}
         >
-            {!isDesktop? (
-                <LocationOnOutlined color='primary' fontSize='large'/>
-            ): (
+           {!isDesktop
+              ? <LocationOnOutlined color="primary" fontSize="large" />
+              : (
                 <Paper elevation={3} className={classes.paper}>
-                    <Typography variant='subtitle2'>
-                        {place.name}
-                    </Typography>
-                    <img className={classes.pointer}
-                    src={place.photo? place.photo.images.large.url:'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'} />
+                  <Typography className={classes.typography} variant="subtitle2" gutterBottom> {place.name}</Typography>
+                  <img
+                    className={classes.pointer}
+                    src={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
+                  />
+                  
                 </Paper>
-            )}
+              )}
         </div>
-})}
+))): <div></div>}
+{
+  weatherData?.list?.map((data,i) => (
+    
+    <div
+    key={i}
+    
+    className={classes.weather}
+    >
+      <img src={`https://openweathermap.org/img/w/${data.weather[0].icon}.png`}/>
+    </div>
+  ))
+}
      </GoogleMap>
     
      </div> 

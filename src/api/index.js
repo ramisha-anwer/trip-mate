@@ -16,10 +16,10 @@ const options = {
   };
   
   
-export const getPlacesData = async(bounds) => {
+export const getPlacesData = async(type,bounds) => {
     try{
       
-        const {data : {data}} = await axios.get(URL,{
+        const {data : {data}} = await axios.get(`https://travel-advisor.p.rapidapi.com/${type}/list-in-boundary`,{
           
           params: {
             bl_latitude: bounds.sw.lat,
@@ -36,5 +36,20 @@ export const getPlacesData = async(bounds) => {
     } catch (error){
             console.log(error);
     }
+}
+
+export const getWeatherData = async (lat,lng) => {
+  try {
+    const {data} = await axios.get('https://community-open-weather-map.p.rapidapi.com/find',{
+      params: { lon: lng, lat: lat},
+      headers: {
+        'X-RapidAPI-Key': '72e3bdfc3emshe6e37f8af09f278p176585jsncc8f19b9bcd9',
+        'X-RapidAPI-Host': 'community-open-weather-map.p.rapidapi.com'
+      }
+    })
+    return data
+  } catch (error) {
+    console.log(error);
+  }
 }
 

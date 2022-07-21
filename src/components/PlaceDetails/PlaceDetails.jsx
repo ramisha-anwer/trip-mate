@@ -17,13 +17,14 @@ if (place.name) {
             <CardContent>
                 <Typography gutterBottom variant='h5'>{place.name}</Typography>
                 <Box className={classes.subtitle}>
+                    <Rating value={Number(place.rating)} readOnly/>
+                    <Typography gutterBottom variant='subtitle1'>out of {place.num_reviews} reviews</Typography>
+                </Box> 
+                <Box className={classes.subtitle}>
                     <Typography variant='subtitle1'>Price</Typography>
                     <Typography gutterBottom variant='subtitle1'>{place.price_level? place.price_level : '$'}</Typography>
                 </Box> 
-                <Box className={classes.subtitle}>
-                    <Typography variant='subtitle1'>Ranking</Typography>
-                    <Typography gutterBottom variant='subtitle1'>{place.ranking? place.ranking : '⭐️⭐️⭐️'}</Typography>
-                </Box>
+                
                 {place?.cuisine?.map(({name})=>(
                     <Chip key={name} size='small' label={name} className={classes.chip}/>
                 ))}
@@ -37,6 +38,8 @@ if (place.name) {
                         <Call/> {place.phone}
                     </Typography>
                 )}
+
+                {place?.web_url && (
                 <CardActions>
                     <Button size='small' color='primary' onClick={() => window.open(place.web_url,'_blank')}>
                         Trip Advisor
@@ -46,7 +49,7 @@ if (place.name) {
                         Website
                     </Button>
                 </CardActions>
-
+                )}
             </CardContent>
         </Card>
     )
