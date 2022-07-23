@@ -11,7 +11,7 @@ const  Map =  ({setCoordinates, setBounds, coordinates,bounds,places, isLoading,
     const mapRef= useRef(Map)
     const isDesktop= useMediaQuery('(min-width:600px)')
      const isloaded =  useJsApiLoader({
-        googleMapsApiKey:'AIzaSyBLYAWKNXFfi-sbuvNhldYMNP6-_ql-xOo'
+        googleMapsApiKey:process.env.REACT_APP_GOOGLE_MAPS_API_KEY
     })
     
 
@@ -20,8 +20,7 @@ const  Map =  ({setCoordinates, setBounds, coordinates,bounds,places, isLoading,
         
         const initBounds=mapRef.current.getBounds()
         
-        console.log("initial bounds", bounds);
-        console.log("mapRef", mapRef.current);
+
 
     },[])
     if (!isloaded) return <div>Loading..</div>

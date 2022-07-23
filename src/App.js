@@ -12,7 +12,7 @@ const App = () => {
     const [places, setPlaces] = useState([])
     const [weatherData, setWeatherData] = useState([])
     const [filteredPlaces, setFilteredPlaces] = useState([])
-    const [coordinates, setCoordinates] = useState({})
+    const [coordinates, setCoordinates] = useState({lat:'40.7128', lng:'74.0060'})
     const [bounds, setBounds] = useState({ ne: { lat: '33.564072359777626', lng: '73.15619010006544' }, sw: { lat: '33.54096456823548', lng: '73.11319580761362' } })
     const [type, setType] = useState('restaurants')
     const [rating, setRating] = useState('')
@@ -28,6 +28,7 @@ const App = () => {
         const filteredPlaces=places.filter((place) => place.rating>rating)
         setFilteredPlaces(filteredPlaces)
     },[rating])
+
     useEffect(() => {
         setIsLoading(true)
         getWeatherData(coordinates.lat,coordinates.lng)
@@ -39,7 +40,6 @@ const App = () => {
                 
                 setPlaces(data.filter((place) => place.name))
                 setFilteredPlaces([])
-                console.log(data);
                 setIsLoading(false)
             })
 
