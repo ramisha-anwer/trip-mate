@@ -16,13 +16,9 @@ const  Map =  ({setCoordinates, setBounds, coordinates,bounds,places, isLoading,
     
 
     const onLoad = useCallback((mapInstance) => 
-    {   mapRef.current=mapInstance
-        
-        const initBounds=mapRef.current.getBounds()
-        
-
-
+    {   mapRef.current=mapInstance  
     },[])
+
     if (!isloaded) return <div>Loading..</div>
      
     return (
@@ -43,12 +39,6 @@ const  Map =  ({setCoordinates, setBounds, coordinates,bounds,places, isLoading,
     options={''} 
     onLoad={onLoad} 
     
-    // onCenterChanged={() => {
-    //     const newcenter= mapRef.current.getCenter()
-    //     setCoordinates({lat:newcenter.lat(), lng: newcenter.lng()})
-    //     console.log("coordinates 2",coordinates);
-     
-    // }} 
     > 
     {!isLoading ? (
     places?.map((place,i) => (

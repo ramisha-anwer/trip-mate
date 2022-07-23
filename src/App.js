@@ -12,14 +12,16 @@ const App = () => {
     const [places, setPlaces] = useState([])
     const [weatherData, setWeatherData] = useState([])
     const [filteredPlaces, setFilteredPlaces] = useState([])
-    const [coordinates, setCoordinates] = useState({lat:'40.7128', lng:'74.0060'})
-    const [bounds, setBounds] = useState({ ne: { lat: '33.564072359777626', lng: '73.15619010006544' }, sw: { lat: '33.54096456823548', lng: '73.11319580761362' } })
+    
+    const [coordinates, setCoordinates] = useState({lat:40.793269090467405, lng:-74.02160794314477})
+    const [bounds, setBounds] = useState({ ne: {lat: '40.8516639182373', lng: '-73.8056163889467' }, sw:  { lat: '40.66910995101048', lng: '-74.13829611842189' } })
     const [type, setType] = useState('restaurants')
     const [rating, setRating] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
+            console.log(latitude, longitude);
             setCoordinates({ lat: latitude, lng: longitude })
         })
     }, [])
@@ -43,7 +45,7 @@ const App = () => {
                 setIsLoading(false)
             })
 
-    }, [type,bounds])
+    }, [type,bounds,coordinates])
     return (
         <>
             <CssBaseline />
