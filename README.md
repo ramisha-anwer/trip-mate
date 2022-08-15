@@ -49,7 +49,7 @@ MIT License<br>
 * If you face issues in any step open a new issue.
 * To fix issues: Fork this repository, make your changes and make a Pull Request. 
 
-# Imortant Message ✉️
+# Important Message ✉️
 
 * Still there are things to complete as well as to implement, If you find this app interesting then hit me up; I will be
 glad to collaborate with you.
